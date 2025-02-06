@@ -1,0 +1,74 @@
+from openai import OpenAI
+import os
+from dotenv import load_dotenv
+import tools
+import json
+
+load_dotenv('.env')
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+def assemble_prompt(subject, level, original_component_type=" ", original_component, additional_prompts, section_tags, knowledge_base, number_of_components, component_types, ITT_Templates):
+    pass
+
+def regen_comp(user_prompt):
+    client = OpenAI(api_key=openai_api_key)
+    response = client.chat.completions.create(
+        model="gpt-4o-mini-2024-07-18",
+        temperature = 0.7,
+        max_tokens = 16000,
+        tools = tools.regeneration,
+        messages=[{"role": "user", "content":user_prompt}]
+        )
+    #print(response)
+    output = response.choices[0].message.tool_calls[0].function.arguments
+    output_dict = json.loads(output)
+    list_of_recommendations = output_dict['recommendations']['componentRecommendations']
+    for component in list_of_recommendations:
+        if 'multipleChoiceQuestion' in component.keys():
+            print('MCQ/MRQ')
+            print('Question: '+str(component['multipleChoiceQuestion']['question']['richtext']))
+            for i in range(len(component['multipleChoiceQuestion']['answers'])):
+                print('Answer '+str(i+1) + ': '+str(component['multipleChoiceQuestion']['answers'][i]['richtext']))
+            for i in range(len(component['multipleChoiceQuestion']['distractors'])):
+                print('Distractor '+str(i+1) + ': '+str(component['multipleChoiceQuestion']['distractors'][i]['richtext']))
+            print(" ")
+        elif 'freeResponseQuestion' in component.keys():
+            print('FRQ')
+            print('Question: '+str(component['freeResponseQuestion']['question']['richtext']))
+            print('Suggested Answer: '+str(component['freeResponseQuestion']['answer']['richtext']))
+            print(" ")
+        elif 'poll' in component.keys():
+            print('Poll')
+            print('Question: '+str(component['poll']['question']['richtext']))
+            for i in range(len(component['poll']['options'])):
+                print('Option '+str(i+1) + ': '+str(component['poll']['options'][i]['richtext']))
+            print(" ")
+        elif 'discussionQuestion' in component.keys():
+            print('Discussion')
+            print('Topic: '+str(component['discussionQuestion']['topic']['richtext']))
+            print('Question: '+str(component['discussionQuestion']['question']['richtext']))
+            print(" ")
+        elif 'errorEditingQuestion' in component.keys():
+            print('Error Editing')
+            for i in range(len(component['errorEditingQuestion']['sentences'])):
+                print('Sentence '+str(i+1) + ': '+str(component['errorEditingQuestion']['sentences'][i]['sentence']['richtext']))
+                print('Error Word '+str(i+1) + ': '+str(component['errorEditingQuestion']['sentences'][i]['errorWord']))
+                print('Answer '+str(i+1) + ': '+str(component['errorEditingQuestion']['sentences'][i]['answer']))
+                print(" ")
+            print(" ")
+        elif 'fillInTheBlankQuestion' in component.keys():
+            print('FITB')
+            print('Question: '+str(component['fillInTheBlankQuestion']['question']['richtext']))
+            for i in range(len(component['fillInTheBlankQuestion']['answers'])):
+                print('Suggested Answers '+str(i+1) + ': '+str(component['fillInTheBlankQuestion']['answers']['answer']))
+            print(" ")
+        elif 'interactiveThinkingRoutineQuestion' in component.keys():
+            print('ITT')
+            for i in range(len(component['interactiveThinkingRoutineQuestion'])):
+                print('Column '+str(i+1) + ' Header: '+str(component['interactiveThinkingRoutineQuestion'][i]['category']))
+                print('Column '+str(i+1) + ' Question: '+str(component['interactiveThinkingRoutineQuestion'][i]['question']['richtext']))
+            print(" ")
+        elif 'text' in component.keys():
+            print('Text')
+            print(component['text']['richtext'])
+            print(" ")
