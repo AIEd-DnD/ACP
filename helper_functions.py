@@ -1,14 +1,21 @@
 from openai import OpenAI
 import os
+import base64
 from dotenv import load_dotenv
+import prompts
 import tools
 import json
 
 load_dotenv('.env')
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
-def assemble_prompt(subject, level, original_component_type=" ", original_component, additional_prompts, section_tags, knowledge_base, number_of_components, component_types, ITT_Templates):
-    pass
+def encode_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode("utf-8")
+
+def assemble_prompt(subject, level, additional_prompts, section_tags, knowledge_base, number_of_components, component_types, prompt_template=prompts.regeneration_base, original_component_type=" ", original_component=" "):
+    user_message = prompt_template.format(Subject=subject, Level=level, Original_Component_Type=original_component_type, Original_Component=original_component, Additional_Prompts=additional_prompts, Section_Tags=section_tags, Knowledge_Base=knowledge_base, Number_of_Components=number_of_components, Component_Types=component_types)
+    return user_message
 
 def regen_comp(user_prompt):
     client = OpenAI(api_key=openai_api_key)
@@ -19,7 +26,7 @@ def regen_comp(user_prompt):
         tools = tools.regeneration,
         messages=[{"role": "user", "content":user_prompt}]
         )
-    #print(response)
+    print(response)
     output = response.choices[0].message.tool_calls[0].function.arguments
     output_dict = json.loads(output)
     list_of_recommendations = output_dict['recommendations']['componentRecommendations']
@@ -35,7 +42,8 @@ def regen_comp(user_prompt):
         elif 'freeResponseQuestion' in component.keys():
             print('FRQ')
             print('Question: '+str(component['freeResponseQuestion']['question']['richtext']))
-            print('Suggested Answer: '+str(component['freeResponseQuestion']['answer']['richtext']))
+            print('Suggested Answer: \n'+str(component['freeResponseQuestion']['answer']['richtext']))
+            print('Total Marks: '+str(component['freeResponseQuestion']['totalMarks']))
             print(" ")
         elif 'poll' in component.keys():
             print('Poll')

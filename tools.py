@@ -14,7 +14,7 @@ regeneration = [
                   "componentRecommendations": {
                     "type": "array",
                     "description": "List of component recommendations",
-                    "minItems": numOfItems,
+                    "minItems": 4,
                     "items": {
                       "anyOf": [
                         {
