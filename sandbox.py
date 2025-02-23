@@ -1,6 +1,6 @@
-import base64
 import helper_functions as ACP
 
+# user_message_bef_KB contains all the instructions before the Knowledge Base, the standard variables have been taken out. Please refer to the original template in prompts.py to determine where and what to fill in.
 user_message_bef_KB = """
 <Context>You are an expert teacher creating lesson content and questions for students.
 Important instructions will be denoted by // at the start of the instruction.
@@ -37,9 +37,10 @@ Important instructions will be denoted by // at the start of the instruction.
 //5. The Knowledge Base contains content that may come in the form of text, images, or some combination of both. You MUST refer to it when creating new components: <Knowledge Base> 
 """
 
-KB_image_path = "images/comprehension_600x845.jpg" 
+KB_image_path = "images/comprehension_600x845.jpg"  # upload the image to the images folder and provide the path here
 KB_base64 = ACP.encode_image(KB_image_path)
 
+# user_message_aft_KB contains all the instructions after the Knowledge Base, the standard variables have been taken out. Please refer to the original template in prompts.py to determine where and what to fill in.
 user_message_aft_KB = """
 </Knowledge Base>
 </Details>
@@ -58,13 +59,15 @@ user_message_aft_KB = """
 //Return the response in the correct JSON format.
 """
 
+# user_message contains the complete prompt with the image encoded in base64, repeat the image_url block for each image in the KB
 user_message = [{"type": "text",
                     "text": user_message_bef_KB},
                 {"type": "image_url",
-                    "image_url": {"url": f"data:image/jpeg;base64,{KB_base64}"}},
+                    "image_url": {"url": f"data:image/jpeg;base64,{KB_base64}", "detail":"low"}},
                 {"type": "text",
                     "text": user_message_aft_KB}]
 
+# user_message_plain_text_only is a text only prompt, no images.
 user_message_plain_text_only = """
 <Context>You are an expert teacher creating lesson content and questions for students.
 Important instructions will be denoted by // at the start of the instruction.

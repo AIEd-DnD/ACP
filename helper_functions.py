@@ -20,7 +20,7 @@ def assemble_prompt(subject, level, additional_prompts, section_tags, knowledge_
 def regen_comp(user_prompt):
     client = OpenAI(api_key=openai_api_key)
     response = client.chat.completions.create(
-        model="gpt-4o-mini-2024-07-18",
+        model="gpt-4o-2024-08-06",
         temperature = 0.7,
         max_tokens = 16000,
         tools = tools.regeneration,
