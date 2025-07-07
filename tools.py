@@ -14,7 +14,7 @@ component_regeneration_tools= [
                   "componentRecommendations": {
                     "type": "array",
                     "description": "List of component recommendations",
-                    "minItems": numOfItems,
+                    "minItems": 4,
                     "items": {
                       "anyOf": [
                         {
@@ -479,7 +479,7 @@ module_to_section_tools = [
                   "sectionRecommendations":{
                     "type": "array",
                     "description": "List of section recommendations",
-                    "minItems": numOfItems,
+                    "minItems": 4,
                     "items": {
                       "type": "object",
                       "properties": {
@@ -518,6 +518,51 @@ module_to_section_tools = [
       }
     ]
 
+module_plan_tools = [
+  {
+    "type": "function",
+    "function": {
+      "name": "get_module_plan_recommendations",
+      "description": "A recommendation of sections and activities for a module plan. Richtext contents must be in HTML format.",
+      "parameters": {
+        "type": "object",
+        "definitions": {
+          "richtext": {
+            "type": "string",
+            "description": "The richtext content in HTML"
+          }
+        },
+        "properties": {
+          "recommendations": {
+            "type": "object",
+            "description": "Recommendations",
+            "properties": {
+              "modulePlan": {
+                "type": "object",
+                "description": "A series of 4-column tables where the column headers are: Interaction, Duration, Activity Details, Suggested SLS Tools. There should be one table for each requested section. Use HTML to format the tables.",
+                "properties": {
+                  "richtext": {
+                    "$ref": "#/definitions/richtext"
+                  }
+                },
+                "required": [
+                  "richtext"
+                ]
+              }
+            },
+            "required": [
+              "modulePlan"
+            ]
+          }
+        },
+        "required": [
+          "recommendations"
+        ]
+      }
+    }
+  }
+]
+
 section_to_activity_tools = [
       {
         "type": "function",
@@ -552,7 +597,7 @@ section_to_activity_tools = [
                   "activityRecommendations": {
                     "type": "array",
                     "description": "List of activity recommendations",
-                    "minItems": numOfItems,
+                    "minItems": 4,
                     "items": {
                       "type": "object",
                       "properties": {
@@ -627,7 +672,7 @@ activity_to_component_tools = [
                   "componentRecommendations": {
                     "type": "array",
                     "description": "List of component recommendations",
-                    "minItems": numOfItems,
+                    "minItems": 4,
                     "items": {
                       "anyOf": [
                         {

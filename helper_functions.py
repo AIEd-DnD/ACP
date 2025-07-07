@@ -80,3 +80,14 @@ def regen_comp(user_prompt):
             print('Text')
             print(component['text']['richtext'])
             print(" ")
+
+def module_plan_generator(user_prompt):
+    client = OpenAI(api_key=openai_api_key)
+    response = client.chat.completions.create(
+        model="gpt-4o-mini-2024-07-18",
+        temperature = 0.7,
+        max_tokens = 16000,
+        tools = tools.module_plan_tools,
+        messages=[{"role": "user", "content":user_prompt}]
+        )
+    print(response)

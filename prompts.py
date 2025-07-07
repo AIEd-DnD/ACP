@@ -47,3 +47,40 @@ Important instructions will be denoted by // at the start of the instruction.\
 
 //Return the response in the final complete ideal JSON format.\
 """
+
+editing_flow_small_fat = """
+<Role>
+As an experienced education coach in Singapore proficient in e-Pedagogy, your role is to create a lesson plan that references the e-pedagogy framework and active learning principles. Before you generate a response, pause for a moment and remember to be creative.
+</Role>
+
+<Context>
+This is an explanation of how lessons are organized within the Student Learning Space. Each lesson consists of a module, which is usually 50-60 minutes long. Within each module, there can be multiple sections to break up the lesson. Each section consists of activities for students to attempt during the lesson. And each activity comprises of various components (text/media, MCQ/MRQ, Discussion Question, Poll, Free Response Question), which students would interact with during the lesson.
+</Context>
+
+Using the following information,
+Module title: Introducing Poetry
+Module description: This lesson introduces students to poetic techniques
+Number of sections: 3
+Number of activities per section: 3
+Key Applications of Technology: [Foster conceptual change, Facilitate learning together]
+
+Step 1. Create a lesson plan that is closely aligned with the following intended learning outcomes: . Think of the necessary sections that the module will need to achieve the learning outcomes. Then suggest activities for each of these sections. These activities should align with the Key Applications of Technology (KAT) selected: [Foster conceptual change, Facilitate learning together]. 
+If I have not identified any KAT, recommend 2 Key Applications of Technology from the following list that are most relevant to the topic and objectives of the lesson: 
+a. Foster conceptual change: Allow students to externalise their conceptual understanding, representing abstract concepts through various modes to help students identify critical features and patterns of the concept, make generalisations and refine their own understanding.
+b. Support assessment for learning: Allow teachers to capture, analyse, summarise and visualise learning data to provide students with targeted feedback and resources to move their learning forward.
+c. Facilitate learning together: Allow students to build on, improve and synthesise ideas collectively across time and space in dynamic groups and providing support for group interactions throughout the learning process.
+d. Develop metacognition: Allowing students to make sense of and regulate their learning activities/processes and knowledge through provision of automated supports, and articulate their reflection through various modes.
+e. Provide differentiation: Allow teachers to harness the interactivity and multimodal features of digital tools to differentiate the nature of content, processes and products of learning to meet the learning needs of students.
+f. Embed scaffolding: Allow teachers to embed digital scaffolds to support thinking and guide interactions between students, teachers, and content.
+g. Enable personalization: Allow teachers to harness non-linear, interactive and adaptive features of digital tools to give students choice in their learning goals, artefacts, process and pace.
+h. Increase motivation: Allow teachers to provide meaningful tasks, choice and support to encourage students to take ownership of and persist in their learning.
+
+Step 2.  SLS tools: Considering the chosen KAT, propose and list NOT MORE than 4 unique SLS tools strictly from this list based on the Key Applications of Technology recommended, bearing in mind that the SLS tools should not play too similar a function to the other suggested tools: [Text/Media, Progressive Quiz, Auto-graded Quiz, Teacher-marked Quiz, Multiple-Choice/ Multiple-Response Question, Fill-in-the-blank Question, Click and Drop Question, Error Editing Question, Free Response Question, Audio Response Question, Rubrics, Tooltip, Interactive Thinking Tool, Poll, Discussion Board, Team Activities, Subgroups, Add Section Prerequisites, Set Differentiated Access, Gamification - Create Game Stories and Achievements, Gamification - Create Game Teams, Set Optional Activities and Quizzes, Speech Evaluation, Chinese Language E-Dictionary, Embed Canva, Embed Nearpod, Embed Coggle, Embed Genial.ly, Embed Quizizz, Embed Kahoot, Embed Google Docs, Embed Google Sheets, Embed Mentimeter, Embed YouTube Videos, Embed Padlet, Embed Gapminder, Embed GeoGebra, Feedback Assistant Mathematics (FA-Math), Speech Evaluation, Text-to-Speech, Embed Book Creator, Embed Simulations, Adaptive Learning System (ALS), Embed ArcGIS Storymap, Embed ArcGIS Digital Maps, Embed PhET Simulations, Embed Open Source Physics @ Singapore Simulations, Embed CK12 Simulations, Embed Desmos, Short Answer Feedback Assistant (ShortAnsFA), Gamification - Quiz leaderboard and ranking, Gamification - Create branches in game stories, Monitor Assignment Page, Insert Transcript for Video & Audio, Insert Student Tooltip, Add Notes to Audio or Video, Data Assistant, Annotated Feedback Assistant (AFA), Learning Assistant (LEA), SLS Digital Badges]
+
+Step 3. For each section requested, you are to produce a "Section Plan" in a 4-column table.
+The column headers are: "Interaction", "Duration", "Activity Details", "Suggested SLS Tools".
+a. Under the "Interaction" column, the only allowed categories are "Student-Student", "Teacher-Student", "Student-Community", "Student-Content".
+b. Under the "Duration" column, suggest in minutes, the duration of the activity. Each activity should be no more than 15 minutes.
+c. Under the "Activity Details" column, display the information as such: Activity number in running sequence (for example: activity #1, activity #2....) followed by an elaboration of key instruction moves and a brief description about how the suggested SLS tool supports the activity. Identify and display it bold, the two Key Applications of Technology (KAT) selected. Briefly explain why each is particularly relevant to this specific learning context, ensuring alignment with the intended learning objectives stated.
+d. Under "Suggested SLS Tools", list the SLS tools. Suggest suitable SLS tools from the following list that can be used to analyse learning data from the lesson to determine whether the lesson objectives are achieved: [SLS Monitor Assignment Page and Heatmap, SLS Learning Progress Dashboard, SLS Data Assistant, SLS Feedback Assistants.] Identify possible refinements to better support students in achieving lesson objectives, for example refinements in lesson design, routines, teaching moves or use of technology. Ensure that the tools suggested cohere with the lesson activity and the selected Key Applications of Technology.
+"""
