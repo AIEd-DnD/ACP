@@ -90,13 +90,13 @@ def small_fat_assembler(subject, level, learning_objectives, number_of_sections,
     user_message = prompts.editing_flow_small_fat.format(Subject=subject, Level=level, Learning_objectives=learning_objectives, Number_of_sections=number_of_sections, Number_of_activities_per_section=number_of_activities_per_section, Instructions=instructions, Knowledge_Base=knowledge_base, KATs=KATs)
     return user_message
 
-def module_plan_generator(user_prompt):
+def module_plan_generator(user_prompt, tool):
     client = OpenAI(api_key=openai_api_key)
     response = client.chat.completions.create(
         model="gpt-4o-mini-2024-07-18",
         temperature = 0.7,
         max_tokens = 16000,
-        tools = tools.module_plan_tools_v2,
+        tools = tool,
         messages=[{"role": "user", "content":user_prompt}]
         )
     return response.choices[0].message.tool_calls[0].function.arguments
