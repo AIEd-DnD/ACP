@@ -2,6 +2,7 @@ from openai import OpenAI
 import os
 import base64
 from dotenv import load_dotenv
+from datetime import datetime
 import prompts
 import tools
 import json
@@ -81,13 +82,31 @@ def regen_comp(user_prompt):
             print(component['text']['richtext'])
             print(" ")
 
+def tools_filler(numOfSections):
+    tools.module_plan_tools_v2[0]['function']['parameters']['properties']['moduleNotes']['minItems'] = numOfSections
+    return tools.module_plan_tools_v2
+
+def small_fat_assembler(subject, level, learning_objectives, number_of_sections, number_of_activities_per_section, instructions, knowledge_base, KATs):
+    user_message = prompts.editing_flow_small_fat.format(Subject=subject, Level=level, Learning_objectives=learning_objectives, Number_of_sections=number_of_sections, Number_of_activities_per_section=number_of_activities_per_section, Instructions=instructions, Knowledge_Base=knowledge_base, KATs=KATs)
+    return user_message
+
 def module_plan_generator(user_prompt):
     client = OpenAI(api_key=openai_api_key)
     response = client.chat.completions.create(
         model="gpt-4o-mini-2024-07-18",
         temperature = 0.7,
         max_tokens = 16000,
-        tools = tools.module_plan_tools,
+        tools = tools.module_plan_tools_v2,
         messages=[{"role": "user", "content":user_prompt}]
         )
-    print(response)
+    return response.choices[0].message.tool_calls[0].function.arguments
+
+def start_new_HTML(file_name):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"Records/ACP_{file_name}_{timestamp}.html"
+    return filename
+
+def write_to_HTML_file(filename, content):
+    with open(filename, 'w') as file:
+        file.write(content)
+    print(f"Content written to {filename}")

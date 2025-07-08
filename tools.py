@@ -479,7 +479,7 @@ module_to_section_tools = [
                   "sectionRecommendations":{
                     "type": "array",
                     "description": "List of section recommendations",
-                    "minItems": 4,
+                    "minItems": 3,
                     "items": {
                       "type": "object",
                       "properties": {
@@ -518,6 +518,62 @@ module_to_section_tools = [
       }
     ]
 
+module_plan_tools_v2 = [
+    {
+  "type": "function",
+  "function": {
+    "name": "get_module_plan_recommendations",
+    "description": "A recommendation of sections and activities for a module plan. Richtext contents must be in HTML format.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "moduleTitle": {
+          "type": "string",
+          "description": "Title of the lesson module in plain text format."
+        },
+        "moduleDescription": {
+          "type": "string",
+          "description": "Brief description of the module's goals and approach. This can be in rich text format, but must be in HTML format.",
+        },
+        "moduleNotes": {
+          "type": "array",
+          "description": "A list of lesson sections with structured activities.",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/definitions/LessonSection"
+          }
+        }
+      },
+      "required": ["moduleDetails", "moduleDescription", "moduleNotes"],
+      "definitions": {
+        "LessonSection": {
+          "type": "object",
+          "properties": {
+            "sectionID": {
+              "type": "integer",
+              "description": "Unique numeric ID for the section."
+            },
+            "sectionTitle": {
+              "type": "string",
+              "description": "Title of the section in plain text format."
+            },
+            "sectionNotes": {
+              "type": "string",
+              "description": "HTML table containing the structured activity breakdown."
+            },
+            "numOfActivities": {
+              "type": "integer",
+              "description": "Number of activities in the section."
+            }
+          },
+          "required": ["sectionID", "sectionTitle", "sectionNotes", "numOfActivities"]
+        }
+      }
+    }
+  }
+}
+]
+
 module_plan_tools = [
   {
     "type": "function",
@@ -548,7 +604,7 @@ module_plan_tools = [
                 "required": [
                   "richtext"
                 ]
-              }
+              },
             },
             "required": [
               "modulePlan"
