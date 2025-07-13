@@ -6,6 +6,7 @@ from datetime import datetime
 import prompts
 import tools
 import json
+import csv
 
 load_dotenv('.env')
 openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -101,10 +102,61 @@ def module_plan_generator(user_prompt, tool):
         )
     return response.choices[0].message.tool_calls[0].function.arguments
 
+def string_to_dict(string):
+    plan_dict = json.loads(string)
+    return plan_dict
+
+def write_HTML(plan_dict):
+    content = str()
+    #content = prompts.styling
+    content += '<h2>Module Title: '+plan_dict['moduleTitle']+'</h2>'
+    content += '<b>Module Description</b>: '+plan_dict['moduleDescription']
+    content += '<br>'
+    for section in plan_dict['moduleNotes']:
+        content += '<h3> Section Title: '+section['sectionTitle']+'</h3>'
+        content += '<b>Suggested number of activities</b>: '+str(section['numOfActivities'])
+        content += '<br>'
+        content += section['sectionNotes']
+    
+    return content
+
 def start_new_HTML(file_name):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"Records/ACP_{file_name}_{timestamp}.html"
     return filename
+
+def start_new_record(file_name):
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"Records/ACP_{file_name}_{timestamp}.csv"
+    return filename
+
+def csv_to_list_of_dicts(file_path):
+    result = list()
+    with open(file_path, 'r', encoding='utf-8-sig') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            result.append(row)
+    return result
+
+def extract_parameters(parameter_dict):
+    subject = parameter_dict['subject']
+    level = parameter_dict['level']
+    learning_objectives = parameter_dict['learning_objectives']
+    number_of_sections = parameter_dict['number_of_sections']
+    number_of_activities_per_section = parameter_dict['number_of_activities_per_section']
+    instructions = parameter_dict['instructions'] 
+    knowledge_base = parameter_dict['knowledge_base']
+    KATs = parameter_dict['KATs']
+
+    return subject, level, learning_objectives, number_of_sections, number_of_activities_per_section, instructions, knowledge_base, KATs
+
+def write_into_record(filename, data):
+    header = ['Subject','Level','Learning Objectives','Requested No. of Sections','Requested No. of Activities per Section','Instructions','Knowledge Base','KATs','Expected Total No. of Activities','Created No. of Sections','Total No. of Created Activities','Total Stated No. of Created Activites','Requested Section Match Status','Requested Total Activities Match Status','Internal Activity No. Consistency','Module Title','Module Description','Module Notes']
+    with open(filename, 'w', newline='', encoding='utf-8-sig') as file:
+        writer = csv.writer(file)
+        writer.writerow(header)
+        writer.writerows(data)
+    print(f"CSV file '{filename}' has been created successfully.")
 
 def write_to_HTML_file(filename, content):
     with open(filename, 'w') as file:

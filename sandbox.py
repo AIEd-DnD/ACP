@@ -2,15 +2,15 @@ import helper_functions as ACP
 import json
 import prompts
 
-file_name = "Refinement_v1"
+file_name = "Prototype_Testing_s1_a19"
 
 learning_objectives = """
-
+- show an understanding that the weight of a body may be taken as acting at a single point known as its centre of gravity 
 """
-subject = " "
-level = " "
-number_of_sections = 2
-number_of_activities_per_section = 4
+subject = "Physics"
+level = "Secondary 3"
+number_of_sections = 1
+number_of_activities_per_section = 19
 instructions = """
 
 """
