@@ -574,6 +574,168 @@ module_plan_tools_v2 = [
 }
 ]
 
+module_plan_tools_v2x = [
+    {
+  "type": "function",
+  "function": {
+    "name": "get_module_plan_recommendations",
+    "description": "A recommendation of sections and activities for a module plan. Richtext contents must be in HTML format.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "moduleTitle": {
+          "type": "string",
+          "description": "Title of the lesson module in plain text format."
+        },
+        "moduleDescription": {
+          "type": "string",
+          "description": "Brief description of the module's goals and approach. This can be in rich text format, but must be in HTML format.",
+        },
+        "moduleNotes": {
+          "type": "array",
+          "description": "A list of lesson sections with structured activities.",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/definitions/LessonSection"
+          }
+        }
+      },
+      "required": ["moduleDetails", "moduleDescription", "moduleNotes"],
+      "definitions": {
+        "LessonSection": {
+          "type": "object",
+          "properties": {
+            "sectionID": {
+              "type": "integer",
+              "description": "Unique numeric ID for the section."
+            },
+            "sectionTitle": {
+              "type": "string",
+              "description": "Title of the section in plain text format."
+            },
+            "sectionNotes": {
+              "type": "string",
+              "description": "HTML table containing the structured activity breakdown."
+            },
+            "numOfActivities": {
+              "type": "integer",
+              "description": "Number of activities in the section."
+            }
+          },
+          "required": ["sectionID", "sectionTitle", "sectionNotes", "numOfActivities"]
+        }
+      }
+    }
+  }
+}
+]
+
+module_plan_tools_v3 = [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_lesson_module",
+      "description": "Generates a structured lesson module plan based on a topic.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "moduleTitle": {
+            "type": "string",
+            "description": "The title of the lesson module."
+          },
+          "moduleDescription": {
+            "type": "string",
+            "description": "A brief description of what the module covers."
+          },
+          "moduleNotes": {
+            "type": "array",
+            "description": "A list of sections and their activities in the module.",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "properties": {
+                "sectionID": {
+                  "type": "integer",
+                  "description": "Unique identifier for the section."
+                },
+                "sectionTitle": {
+                  "type": "string",
+                  "description": "The title of the section."
+                },
+                "numOfActivities": {
+                  "type": "integer",
+                  "description": "The number of activities in this section."
+                },
+                "sectionNotes": {
+                  "type": "array",
+                  "description": "Detailed breakdown of each activity.",
+                  "minItems": 3,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "interactionType": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Type of interaction (e.g., Student-Student, Teacher-Student)."
+                      },
+                      "duration": {
+                        "type": "integer",
+                        "description": "Duration of the activity in minutes."
+                      },
+                      "activityType": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "The kind of activity (e.g., Activity, Assessment)."
+                      },
+                      "suggestedSLSTools": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Recommended tools to use in SLS (Student Learning Space)."
+                      },
+                      "KAT": {
+                        "type": "string",
+                        "description": "Key Affordances of Technology for this activity, including a rationale."
+                      },
+                      "activityDetails": {
+                        "type": "object",
+                        "properties": {
+                          "activityTitle": {
+                            "type": "string"
+                          },
+                          "activityNotes": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["activityTitle", "activityNotes"]
+                      }
+                    },
+                    "required": [
+                      "interactionType",
+                      "duration",
+                      "activityType",
+                      "suggestedSLSTools",
+                      "KAT",
+                      "activityDetails"
+                    ]
+                  }
+                }
+              },
+              "required": ["sectionID", "sectionTitle", "numOfActivities", "sectionNotes"]
+            }
+          }
+        },
+        "required": ["moduleTitle", "moduleDescription", "moduleNotes"]
+      }
+    }
+  }
+]
+
 module_plan_tools = [
   {
     "type": "function",

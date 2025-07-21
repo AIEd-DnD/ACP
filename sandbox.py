@@ -1,8 +1,8 @@
 import helper_functions as ACP
 import json
-import prompts
+#import prompts
 
-file_name = "Prototype_Testing_s1_a19"
+file_name = "Prototype_v2_Testing_s1_a1"
 
 learning_objectives = """
 - show an understanding that the weight of a body may be taken as acting at a single point known as its centre of gravity 
@@ -10,7 +10,7 @@ learning_objectives = """
 subject = "Physics"
 level = "Secondary 3"
 number_of_sections = 1
-number_of_activities_per_section = 19
+number_of_activities_per_section = 1
 instructions = """
 
 """
@@ -20,77 +20,131 @@ knowledge_base = """
 KATs = """
 
 """
-module_plan_tools_v2 = [
-    {
-  "type": "function",
-  "function": {
-    "name": "get_module_plan_recommendations",
-    "description": "A recommendation of sections and activities for a module plan. Richtext contents must be in HTML format.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "moduleTitle": {
-          "type": "string",
-          "description": "Title of the lesson module in plain text format."
-        },
-        "moduleDescription": {
-          "type": "string",
-          "description": "Brief description of the module's goals and approach. This can be in rich text format, but must be in HTML format.",
-        },
-        "moduleNotes": {
-          "type": "array",
-          "description": "A list of lesson sections with structured activities.",
-          "minItems": number_of_sections,
-          "items": {
-            "$ref": "#/definitions/LessonSection"
-          }
-        }
-      },
-      "required": ["moduleDetails", "moduleDescription", "moduleNotes"],
-      "definitions": {
-        "LessonSection": {
-          "type": "object",
-          "properties": {
-            "sectionID": {
-              "type": "integer",
-              "description": "Unique numeric ID for the section."
-            },
-            "sectionTitle": {
-              "type": "string",
-              "description": "Title of the section in plain text format."
-            },
-            "sectionNotes": {
-              "type": "string",
-              "description": "HTML table containing the structured activity breakdown."
-            },
-            "numOfActivities": {
-              "type": "integer",
-              "description": "Number of activities in the section."
-            }
+module_plan_tools_v3 = [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_lesson_module",
+      "description": "Generates a structured lesson module plan based on a topic.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "moduleTitle": {
+            "type": "string",
+            "description": "The title of the lesson module."
           },
-          "required": ["sectionID", "sectionTitle", "sectionNotes", "numOfActivities"]
-        }
+          "moduleDescription": {
+            "type": "string",
+            "description": "A brief description of what the module covers."
+          },
+          "moduleNotes": {
+            "type": "array",
+            "description": "A list of sections and their activities in the module.",
+            "minItems": number_of_sections,
+            "items": {
+              "type": "object",
+              "properties": {
+                "sectionID": {
+                  "type": "integer",
+                  "description": "Unique identifier for the section."
+                },
+                "sectionTitle": {
+                  "type": "string",
+                  "description": "The title of the section."
+                },
+                "numOfActivities": {
+                  "type": "integer",
+                  "description": "The number of activities in this section."
+                },
+                "sectionNotes": {
+                  "type": "array",
+                  "description": "Detailed breakdown of each activity.",
+                  "minItems": number_of_activities_per_section,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "interactionType": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Type of interaction (e.g., Student-Student, Teacher-Student)."
+                      },
+                      "duration": {
+                        "type": "integer",
+                        "description": "Duration of the activity in minutes."
+                      },
+                      "activityType": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "The kind of activity (e.g., Activity, Assessment)."
+                      },
+                      "suggestedSLSTools": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Recommended tools to use in SLS (Student Learning Space)."
+                      },
+                      "KAT": {
+                        "type": "string",
+                        "description": "Key Affordances of Technology for this activity, including a rationale."
+                      },
+                      "activityDetails": {
+                        "type": "object",
+                        "properties": {
+                          "activityTitle": {
+                            "type": "string"
+                          },
+                          "activityNotes": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["activityTitle", "activityNotes"]
+                      }
+                    },
+                    "required": [
+                      "interactionType",
+                      "duration",
+                      "activityType",
+                      "suggestedSLSTools",
+                      "KAT",
+                      "activityDetails"
+                    ]
+                  }
+                }
+              },
+              "required": ["sectionID", "sectionTitle", "numOfActivities", "sectionNotes"]
+            }
+          }
+        },
+        "required": ["moduleTitle", "moduleDescription", "moduleNotes"]
       }
     }
   }
-}
 ]
 
 message = ACP.small_fat_assembler(subject, level, learning_objectives, str(number_of_sections), str(number_of_activities_per_section), instructions, knowledge_base, KATs)
 #print(message)
-plan = ACP.module_plan_generator(message, module_plan_tools_v2)
+plan = ACP.module_plan_generator(message, module_plan_tools_v3)
 plan_dict = json.loads(plan)
-print(plan_dict)
+stuff = type(plan_dict['moduleNotes'][0]['sectionNotes'][0]['interactionType'])
+print(stuff)
 
-content = prompts.styling
-content += '<h2>Module Title: '+plan_dict['moduleTitle']+'</h2>'
-content += '<b>Module Description</b>: '+plan_dict['moduleDescription']
-content += '<br>'
-for section in plan_dict['moduleNotes']:
-    content += '<h3> Section Title: '+section['sectionTitle']+'</h3>'
-    content += '<b>Suggested number of activities</b>: '+str(section['numOfActivities'])
-    content += '<br>'
-    content += section['sectionNotes']
+
+
+#content = prompts.styling
+#content += '<html><h2>Module Title: '+plan_dict['moduleTitle']+'</h2>'
+#content += '<b>Module Description</b>: '+plan_dict['moduleDescription']
+#content += '<br>'
+#for section in plan_dict['moduleNotes']:
+    #content += '<h3> Section Title: '+section['sectionTitle']+'</h3>'
+    #content += '<b>Suggested number of activities</b>: '+str(section['numOfActivities'])
+    #content += '<br>'
+    #content += section['sectionNotes']
 
 filename = ACP.start_new_HTML(file_name)
-ACP.write_to_HTML_file(filename, content)
+#ACP.write_to_HTML_file(filename, content)
+ACP.json_to_html(plan_dict, filename)
