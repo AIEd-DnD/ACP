@@ -1,6 +1,9 @@
 import helper_functions as ACP
 import prompts
 
+# Variable list starts here
+# Do not change the values of any of these variables, except knowledge_base, which must be a valid PDF file path.
+
 subject = " "
 level = " "
 section_tags = " "
@@ -8,8 +11,10 @@ number_of_components = 1
 original_component_type = " "
 original_component = " "
 additional_prompts = "Reproduce text in the knowledge base exactly word for word. Do not add or remove words or rephrase them."
-knowledge_base = "KnowledgeBase/PEDance.pdf"
+knowledge_base = "KnowledgeBase/PEDance.pdf" #need to test across different font, paragraph and line formatting. Must create seperate PDF files for this. 
 component_types = "Text"
+
+#Variable list ends here
 
 message_part_1 = prompts.regeneration_base_file_input_part_1.format(Subject=subject, Level=level, Section_Tags=section_tags, Original_Component_Type=original_component_type, Original_Component=original_component, Additional_Prompts=additional_prompts)
 message_part_2 = prompts.regeneration_base_file_input_part_2.format(Number_of_Components=str(number_of_components), Knowledge_Base=knowledge_base, Component_Types=component_types)
@@ -460,4 +465,5 @@ component_regeneration_tools= [
       }
     ]
 
-ACP.regen_comp_file_input(message_part_1, message_part_2, knowledge_base)
+
+ACP.regen_comp_file_input(message_part_1, message_part_2, knowledge_base, component_regeneration_tools)

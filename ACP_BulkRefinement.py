@@ -22,58 +22,94 @@ for test_scenario in testbench:
     new_row.append(KATs)
     new_row.append(int(number_of_sections) * int(number_of_activities_per_section))
 
-    module_plan_tools_v2 = [
-    {
-  "type": "function",
-  "function": {
-    "name": "get_module_plan_recommendations",
-    "description": "A recommendation of sections and activities for a module plan. Richtext contents must be in HTML format.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "moduleTitle": {
-          "type": "string",
-          "description": "Title of the lesson module in plain text format."
-        },
-        "moduleDescription": {
-          "type": "string",
-          "description": "Brief description of the module's goals and approach. This can be in rich text format, but must be in HTML format.",
-        },
-        "moduleNotes": {
-          "type": "array",
-          "description": "A list of lesson sections with structured activities.",
-          "minItems": int(number_of_sections),
-          "items": {
-            "$ref": "#/definitions/LessonSection"
-          }
-        }
+    module_plan_tools_v3 = [
+  {
+  "name": "lessonModuleGenerator",
+  "description": "Generate a structured lesson module with sections and activities for a given topic.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "moduleTitle": {
+        "type": "string",
+        "description": "The title of the lesson module."
       },
-      "required": ["moduleDetails", "moduleDescription", "moduleNotes"],
-      "definitions": {
-        "LessonSection": {
+      "moduleDescription": {
+        "type": "string",
+        "description": "A short description of the lesson module's aim or learning objectives."
+      },
+      "moduleNotes": {
+        "type": "array",
+        "description": "An array of sections with structured activity plans.",
+        "minItems": int(number_of_sections),
+        "items": {
           "type": "object",
           "properties": {
             "sectionID": {
               "type": "integer",
-              "description": "Unique numeric ID for the section."
+              "description": "A unique integer identifier for the section."
             },
             "sectionTitle": {
               "type": "string",
-              "description": "Title of the section in plain text format."
-            },
-            "sectionNotes": {
-              "type": "string",
-              "description": "HTML table containing the structured activity breakdown."
+              "description": "The title of the section."
             },
             "numOfActivities": {
               "type": "integer",
-              "description": "Number of activities in the section."
+              "description": "The number of activities in this section."
+            },
+            "sectionNotes": {
+              "type": "array",
+              "description": "An array of activity plans.",
+              "minItems": int(number_of_activities_per_section),
+              "items": {
+                "type": "object",
+                "properties": {
+                  "activityType": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "suggestedSLSTools": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                  },
+                  "katDetails": {
+                    "type": "object",
+                    "properties": {
+                      "KATs": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                      },
+                      "notes": { "type": "string" }
+                    },
+                    "required": ["KATs", "notes"]
+                  },
+                  "activityDetails": {
+                    "type": "object",
+                    "properties": {
+                      "activityTitle": { "type": "string" },
+                      "activityNotes": { "type": "string" }
+                    },
+                    "required": ["activityTitle", "activityNotes"]
+                  }
+                },
+                "required": [
+                  "activityType",
+                  "suggestedSLSTools",
+                  "katDetails",
+                  "activityDetails"
+                ]
+              }
             }
           },
-          "required": ["sectionID", "sectionTitle", "sectionNotes", "numOfActivities"]
+          "required": [
+            "sectionID",
+            "sectionTitle",
+            "numOfActivities",
+            "sectionNotes"
+          ]
         }
       }
-    }
+    },
+    "required": ["moduleTitle", "moduleDescription", "moduleNotes"]
   }
 }
 ]

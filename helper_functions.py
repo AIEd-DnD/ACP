@@ -84,13 +84,13 @@ def regen_comp(user_prompt):
             print(component['text']['richtext'])
             print(" ")
 
-def regen_comp_file_input(user_prompt_part_1, user_prompt_part_2, file_url):
+def regen_comp_file_input(user_prompt_part_1, user_prompt_part_2, file_url, Tools):
     client = OpenAI(api_key=openai_api_key)
     response = client.responses.create(
         model="gpt-4o-2024-08-06",
         max_output_tokens=16000,
         temperature=0.7,
-        #tools=Tools,
+        tools=Tools,
         input=[
             {
                 "role": "user",

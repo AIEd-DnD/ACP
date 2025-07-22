@@ -8,33 +8,27 @@
                 "numOfActivities":3,
                 "sectionNotes":[
                                 {
-                                  "interactionType":["Student-Content"],
-                                  "duration":10,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["Embed YouTube Videos", "Embed Google Doc"],
-                                  "KAT":"<strong>KAT: Foster conceptual change, Facilitate learning together</strong> - This promotes understanding of abstract concepts in poetry and encourages collective discussion.",
+                                  "katDetails":{"KATs":["Foster conceptual change","Facilitate learning together"],"notes":"This promotes understanding of abstract concepts in poetry and encourages collective discussion."},
                                   "activityDetails":{
                                                       "activityTitle":"Multimedia Presentation",
                                                       "activityNotes":"Students will explore different poetic techniques through a multimedia presentation. They will reflect on the techniques used in selected poems."
                                                     }
                                 },
                                 {
-                                  "interactionType":["Student-Student"],
-                                  "duration":15,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["Discussion Board", "Team Activities"],
-                                  "KAT":"<strong>KAT: Facilitate learning together</strong> - This activity encourages collaboration and idea synthesis.",
+                                  "katDetails":{"KATs":["Facilitate learning together"],"notes":"This activity encourages collaboration and idea synthesis."},
                                   "activityDetails":{
                                                       "activityTitle":"Identifying poetic techniques",
                                                       "activityNotes":"In pairs, students will analyze a poem, identifying poetic techniques and discussing their impact."
                                                     }
                                 },
                                 {
-                                  "interactionType":["Teacher-Student"],
-                                  "duration":15,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["Poll", "Interactive Thinking Tool"],
-                                  "KAT":"<strong>KAT: Foster conceptual change</strong> - This reinforces understanding and allows for real-time feedback.",
+                                  "katDetails":{"KATs":["Foster conceptual change"],"notes":"This reinforces understanding and allows for real-time feedback."},
                                   "activityDetails":{
                                                       "activityTitle":"Class discussion",
                                                       "activityNotes":"The teacher will lead a class discussion on the importance of poetic techniques, using examples from students' analyses."
@@ -50,33 +44,27 @@
                 "numOfActivities":3,
                 "sectionNotes":[
                                 {
-                                  "interactionType":["Student-Content"],
-                                  "duration":10,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["Embed Book Creator", "Rubrics"],
-                                  "KAT":"<strong>KAT: Enable personalization, Foster conceptual change</strong> - This allows students to express their understanding creatively and in a personalized manner.",
+                                  "katDetails":{"KATs":["Enable personalization","Foster conceptual change"],"notes":"This allows students to express their understanding creatively and in a personalized manner."},
                                   "activityDetails":{
                                                       "activityTitle":"Create your own poem!",
                                                       "activityNotes":"Students will use a template to create their own poems, incorporating various techniques learned."
                                                     }
                                 },
                                 {
-                                  "interactionType":["Student-Student"],
-                                  "duration":15,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["Feedback Assistant", "Discussion Board"],
-                                  "KAT":"<strong>KAT: Facilitate learning together</strong> - This enhances collaborative learning through peer-to-peer interaction.",
+                                  "katDetails":{"KATs":["Facilitate learning together"],"notes":"This enhances collaborative learning through peer-to-peer interaction."},
                                   "activityDetails":{
                                                       "activityTitle":"Peer review",
                                                       "activityNotes":"Peer review of each other's poems, providing constructive feedback based on specific criteria."
                                                     }
                                 },
                                 {
-                                  "interactionType":["Teacher-Student"],
-                                  "duration":15,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["SLS Learning Progress Dashboard", "SLS Monitor Assignment Page"],
-                                  "KAT":"<strong>KAT: Support assessment for learning</strong> - This allows for targeted feedback to guide students' improvements.",
+                                  "katDetails":{"KATs":["Support assessment for learning"],"notes":"This allows for targeted feedback to guide students' improvements."},
                                   "activityDetails":{
                                                       "activityTitle":"Teacher feedback",
                                                       "activityNotes":"The teacher will provide feedback on selected poems during a class discussion, highlighting effective use of techniques."
@@ -92,33 +80,27 @@
                 "numOfActivities":3,
                 "sectionNotes":[
                                 {
-                                  "interactionType":["Student-Community"],
-                                  "duration":10,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["Embed Nearpod", "Poll"],
-                                  "KAT":"<strong>KAT: Facilitate learning together</strong> - This encourages a sense of community and shared learning experience.",
+                                  "katDetails":{"KATs":["Facilitate learning together"],"notes":"This encourages a sense of community and shared learning experience."},
                                   "activityDetails":{
                                                       "activityTitle":"Poem Presentation",
                                                       "activityNotes":"Students will present their poems to the class, explaining the techniques used."
                                                     }
                                 },
                                 {
-                                  "interactionType":["Student-Student"],
-                                  "duration":15,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["Discussion Board", "Team Activities"],
-                                  "KAT":"<strong>KAT: Foster conceptual change</strong> - This promotes deeper understanding through collaborative reflection.",
+                                  "katDetails":{"KATs":["Foster conceptual change"],"notes":"This promotes deeper understanding through collaborative reflection."},
                                   "activityDetails":{
                                                       "activityTitle":"Group Feedback Session",
                                                       "activityNotes":"Group feedback session where students discuss their presentations and reflect on each other's work."
                                                     }
                                 },
                                 {
-                                  "interactionType":["Teacher-Student"],
-                                  "duration":15,
                                   "activityType":["Activity"],
                                   "suggestedSLSTools":["Poll", "Interactive Thinking Tool"],
-                                  "KAT":"<strong>KAT: Develop metacognition</strong> - This helps students articulate their learning and thought processes.",
+                                  "katDetails":{"KATs":["Develop metacognition"],"notes":"This helps students articulate their learning and thought processes."},
                                   "activityDetails":{
                                                       "activityTitle":"Teacher-led Reflection",
                                                       "activityNotes":"The teacher leads a reflective discussion on the key learnings from the module and how techniques can be applied in future writing."
