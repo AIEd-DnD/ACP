@@ -3,15 +3,16 @@ import helper_functions as ACP
 data = list()
 #test_name = input("Please enter the name of the test: ")               #uncomment this to unlock user input for test name
 #file_path = input("Please enter the file path of the test data: ")     #uncomment this to unlock user input for file path
-evaluation_record = ACP.start_new_record("big_fat_v1")
+evaluation_record = ACP.start_new_record("gpt5_mini_evaluation")  #change the file name here for different evaluation records
 print("The record has been created.")
 testbench = ACP.csv_to_list_of_dicts("Dataset/ACP_VolumeComplianceBulkTest.csv")
 print("The testbench has been loaded.")
 
 for test_scenario in testbench:
     new_row = list()
-    subject, level, learning_objectives, number_of_sections, number_of_activities_per_section, instructions, knowledge_base, KATs = ACP.extract_parameters(test_scenario)
+    module_title, subject, level, learning_objectives, number_of_sections, number_of_activities_per_section, instructions, knowledge_base, KATs = ACP.extract_parameters(test_scenario)
 
+    new_row.append(module_title)
     new_row.append(subject)
     new_row.append(level)
     new_row.append(learning_objectives)
@@ -22,8 +23,98 @@ for test_scenario in testbench:
     new_row.append(KATs)
     new_row.append(int(number_of_sections) * int(number_of_activities_per_section))
 
+    module_plan_tools_v4 = [
+        {
+    "type": "function",
+    "function": {
+      "name": "generate_lesson_module",
+      "description": "Generates a lesson module including multiple sections with activities or quizzes.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "moduleTitle": {
+            "type": "string",
+            "description": "The title of the lesson module. Use the module title provided by the user, unless the user did not provide a module title. Any suggested module title should be concise and descriptive in plain text format."
+          },
+          "moduleDescription": {
+            "type": "string",
+            "description": "A summary of what the students will be learning in this lesson module and the activities that the students will be engaging in."
+          },
+          "moduleNotes": {
+            "type": "array",
+            "description": "A list of sections in the module.",
+            "minItems": int(number_of_sections),
+            "items": {
+              "type": "object",
+              "properties": {
+                "sectionID": {
+                  "type": "integer",
+                  "description": "Unique numeric identifier for the section."
+                },
+                "sectionTitle": {
+                  "type": "string",
+                  "description": "Title of the section. Section title should be concise and descriptive in plain text format."
+                },
+                "sectionNotes": {
+                  "type": "array",
+                  "description": "List of activities or quizzes in this section.",
+                  "minItems": int(number_of_activities_per_section),
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "activityType": {
+                        "type": "string",
+                        "enum": ["Activity", "Quiz"],
+                        "description": "Type of activity - either 'Activity' or 'Quiz'."
+                      },
+                      "suggestedSLSTools": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Suggested tools to use in SLS for this activity."
+                      },
+                      "suggestedKATs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": ["Foster conceptual change", "Support assessment for learning", "Facilitate learning together", "Develop metacognition", "Provide differentiation", "Embed scaffolding", "Enable personalisation", "Increase motivation"],
+                        },
+                        "description": "Suggested Key Applications of Technology (KATs) for the activity. Priority should be given to KATs requested by the user."
+                      },
+                      "activityDetails": {
+                        "type": "object",
+                        "properties": {
+                          "activityTitle": {
+                            "type": "string",
+                            "description": "Title of the activity."
+                          },
+                          "activityNotes": {
+                            "type": "string",
+                            "description": "Details or instructions for the activity. The notes should describe what the students will be doing in the activity and how teachers can facilitate the activity by using the suggested SLS tools."
+                          }
+                        },
+                        "required": ["activityTitle", "activityNotes"]
+                      }
+                    },
+                    "required": ["activityType", "suggestedSLSTools", "suggestedKATs", "activityDetails"]
+                  }
+                }
+              },
+              "required": ["sectionID", "sectionTitle", "sectionNotes"]
+            }
+          }
+        },
+        "required": ["moduleTitle", "moduleDescription", "moduleNotes"]
+      }
+    }
+  }
+]
+
     module_plan_tools_v3 = [
   {
+  "type":"function",
+  "function": {
   "name": "lessonModuleGenerator",
   "description": "Generate a structured lesson module with sections and activities for a given topic.",
   "parameters": {
@@ -110,14 +201,16 @@ for test_scenario in testbench:
       }
     },
     "required": ["moduleTitle", "moduleDescription", "moduleNotes"]
+    }
   }
 }
 ]
+    
     message = ACP.small_fat_assembler(subject, level, learning_objectives, str(number_of_sections), str(number_of_activities_per_section), instructions, knowledge_base, KATs)
 
     print('Trying response '+str(testbench.index(test_scenario)+1)+" of "+str(len(testbench)))
     try:
-        plan = ACP.module_plan_generator(message, module_plan_tools_v2)
+        plan = ACP.module_plan_generator(message, module_plan_tools_v4)
         plan_dict = ACP.string_to_dict(plan)
     except Exception as exp:
         print(f"An error occurred when trying to process the response from OpenAI: {str(exp)}.")
@@ -153,8 +246,8 @@ for test_scenario in testbench:
         continue
     
     try:
-      HTML_file = ACP.write_HTML(plan_dict)
-      #HTML_file = ACP.json_to_html_writer(plan_dict)
+      #HTML_file = ACP.write_HTML(plan_dict)
+      HTML_file = ACP.json_to_html_writer(plan_dict)
     except Exception as exp:
         print(f"An error occurred when trying to write the HTML file: {str(exp)}.")
         new_row.append(Number_of_sections)

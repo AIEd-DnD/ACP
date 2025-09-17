@@ -163,8 +163,8 @@ def tools_filler(numOfSections):
     tools.module_plan_tools_v2[0]['function']['parameters']['properties']['moduleNotes']['minItems'] = numOfSections
     return tools.module_plan_tools_v2
 
-def small_fat_assembler(subject, level, learning_objectives, number_of_sections, number_of_activities_per_section, instructions, knowledge_base, KATs):
-    user_message = prompts.editing_flow_small_fat.format(Subject=subject, Level=level, Learning_objectives=learning_objectives, Number_of_sections=number_of_sections, Number_of_activities_per_section=number_of_activities_per_section, Instructions=instructions, Knowledge_Base=knowledge_base, KATs=KATs)
+def small_fat_assembler(module_title, subject, level, learning_objectives, number_of_sections, number_of_activities_per_section, instructions, knowledge_base, KATs):
+    user_message = prompts.editing_flow_v2.format(Module_Title=module_title, Subject=subject, Level=level, Learning_objectives=learning_objectives, Number_of_sections=number_of_sections, Number_of_activities_per_section=number_of_activities_per_section, Instructions=instructions, Knowledge_Base=knowledge_base, KATs=KATs)
     return user_message
 
 def module_plan_generator(user_prompt, tool):
@@ -176,6 +176,19 @@ def module_plan_generator(user_prompt, tool):
         tools = tool,
         messages=[{"role": "user", "content":user_prompt}]
         )
+    print(response)
+    return response.choices[0].message.tool_calls[0].function.arguments
+
+def module_plan_generator_gpt5(user_prompt, tool):
+    client = OpenAI(api_key=openai_api_key)
+    response = client.chat.completions.create(
+        model="gpt-5-mini-2025-08-07",
+        reasoning_effort="high",
+        max_completion_tokens=32000,
+        tools = tool,
+        messages=[{"role": "user", "content":user_prompt}]
+        )
+    print(response)
     return response.choices[0].message.tool_calls[0].function.arguments
 
 def string_to_dict(string):
@@ -259,6 +272,7 @@ def csv_to_list_of_dicts(file_path):
     return result
 
 def extract_parameters(parameter_dict):
+    module_title = parameter_dict['module_title']
     subject = parameter_dict['subject']
     level = parameter_dict['level']
     learning_objectives = parameter_dict['learning_objectives']
@@ -268,10 +282,10 @@ def extract_parameters(parameter_dict):
     knowledge_base = parameter_dict['knowledge_base']
     KATs = parameter_dict['KATs']
 
-    return subject, level, learning_objectives, number_of_sections, number_of_activities_per_section, instructions, knowledge_base, KATs
+    return module_title, subject, level, learning_objectives, number_of_sections, number_of_activities_per_section, instructions, knowledge_base, KATs
 
 def write_into_record(filename, data):
-    header = ['Subject','Level','Learning Objectives','Requested No. of Sections','Requested No. of Activities per Section','Instructions','Knowledge Base','KATs','Expected Total No. of Activities','Created No. of Sections','Total No. of Created Activities','Total Stated No. of Created Activites','Requested Section Match Status','Requested Total Activities Match Status','Internal Activity No. Consistency','Module Title','Module Description','Module Notes']
+    header = ['User Module Title','Subject','Level','Learning Objectives','Requested No. of Sections','Requested No. of Activities per Section','Instructions','Knowledge Base','Requested KATs','Expected Total No. of Activities','Created No. of Sections','Total No. of Created Activities','Requested Section Match Status','Requested Total Activities Match Status','LLM Module Title','Module Description','Module Notes']
     with open(filename, 'w', newline='', encoding='utf-8-sig') as file:
         writer = csv.writer(file)
         writer.writerow(header)
@@ -329,7 +343,7 @@ def json_to_html(data, output_filename):
     print(f"HTML file '{output_filename}' has been created.")
 
 def json_to_html_writer(data):
-    html = ['<html>', '<head><meta charset="UTF-8"><title>{}</title></head><body>'.format(escape(data['moduleTitle']))]
+    html = [prompts.styling, '<html>', '<head><meta charset="UTF-8"><title>{}</title></head><body>'.format(escape(data['moduleTitle']))]
     
     # Title and Description
     html.append(f"<h1>{escape(data['moduleTitle'])}</h1>")
@@ -338,29 +352,20 @@ def json_to_html_writer(data):
     # Each section
     for section in data['moduleNotes']:
         html.append(f"<h2>Section {section['sectionID']}: {escape(section['sectionTitle'])}</h2>")
-        html.append(f"<p>Number of Activities: {section['numOfActivities']}</p>")
         
         # Begin table
         html.append('<table border="1" cellpadding="5" cellspacing="0">')
         html.append('''<tr>
-            <th>Interaction Type</th>
-            <th>Duration (mins)</th>
-            <th>Activity Type</th>
-            <th>Suggested SLS Tools</th>
-            <th>KAT</th>
             <th>Activity Title</th>
             <th>Activity Notes</th>
+            <th>KAT</th>
         </tr>''')
         
         for note in section['sectionNotes']:
             html.append('<tr>')
-            html.append(f"<td>{', '.join(map(escape, note['interactionType']))}</td>")
-            html.append(f"<td>{note['duration']}</td>")
-            html.append(f"<td>{', '.join(map(escape, note['activityType']))}</td>")
-            html.append(f"<td>{', '.join(map(escape, note['suggestedSLSTools']))}</td>")
-            html.append(f"<td>{escape(note['KAT'])}</td>")
             html.append(f"<td>{escape(note['activityDetails']['activityTitle'])}</td>")
-            html.append(f"<td>{escape(note['activityDetails']['activityNotes'])}</td>")
+            html.append(f"<td>{escape(note['activityDetails']['activityNotes'])} <b>Suggested SLS Tools</b>: {', '.join(map(escape, note['suggestedSLSTools']))}</td>")
+            html.append(f"<td>{escape(note['suggestedKATs'])}</td>")
             html.append('</tr>')
         
         html.append('</table><br>')

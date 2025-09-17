@@ -1,0 +1,114 @@
+{
+"moduleTitle":"Introduction to Poetry",
+"moduleDescription":"This module aims to introduce students to poetic techniques, fostering a deeper understanding and appreciation of poetry through active engagement."
+"moduleNotes":[
+                {
+                "sectionID":200001,
+                "sectionTitle":"Understanding Poetic Techniques",
+                "numOfActivities":3,
+                "sectionNotes":[
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["Embed YouTube Videos", "Embed Google Doc"],
+                                  "suggestedKATs":["Foster conceptual change","Facilitate learning together"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Multimedia Presentation",
+                                                      "activityNotes":"Students will explore different poetic techniques through a multimedia presentation. They will reflect on the techniques used in selected poems."
+                                                    }
+                                },
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["Discussion Board", "Team Activities"],
+                                  "suggestedKATs":["Facilitate learning together"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Identifying poetic techniques",
+                                                      "activityNotes":"In pairs, students will analyse a poem, identifying poetic techniques and discussing their impact."
+                                                    }
+                                },
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["Poll", "Interactive Thinking Tool"],
+                                  "suggestedKATs":["Foster conceptual change"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Class discussion",
+                                                      "activityNotes":"The teacher will lead a class discussion on the importance of poetic techniques, using examples from students' analyses."
+                                                    }
+                                }
+
+                                ]
+
+                },
+                {
+                "sectionID":200002,
+                "sectionTitle":"Creating Original Poetry",
+                "numOfActivities":3,
+                "sectionNotes":[
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["Embed Book Creator", "Rubrics"],
+                                  "suggestedKATs":["Enable personalization","Foster conceptual change"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Create your own poem!",
+                                                      "activityNotes":"Students will use a template to create their own poems, incorporating various techniques learned."
+                                                    }
+                                },
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["Feedback Assistant", "Discussion Board"],
+                                  "suggestedKATs":["Facilitate learning together"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Peer review",
+                                                      "activityNotes":"Peer review of each other's poems, providing constructive feedback based on specific criteria."
+                                                    }
+                                },
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["SLS Learning Progress Dashboard", "SLS Monitor Assignment Page"],
+                                  "suggestedKATs":["Support assessment for learning"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Teacher feedback",
+                                                      "activityNotes":"The teacher will provide feedback on selected poems during a class discussion, highlighting effective use of techniques."
+                                                    }
+                                }
+
+                                ]
+
+                },
+                {
+                "sectionID":200003,
+                "sectionTitle":"Sharing and Reflecting on Poetry",
+                "numOfActivities":3,
+                "sectionNotes":[
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["Embed Nearpod", "Poll"],
+                                  "suggestedKATs":["Facilitate learning together"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Poem Presentation",
+                                                      "activityNotes":"Students will present their poems to the class, explaining the techniques used."
+                                                    }
+                                },
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["Discussion Board", "Team Activities"],
+                                  "suggestedKATs":["Foster conceptual change"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Group Feedback Session",
+                                                      "activityNotes":"Group feedback session where students discuss their presentations and reflect on each other's work."
+                                                    }
+                                },
+                                {
+                                  "activityType":"Activity",
+                                  "suggestedSLSTools":["Poll", "Interactive Thinking Tool"],
+                                  "suggestedKATs":["Develop metacognition"],
+                                  "activityDetails":{
+                                                      "activityTitle":"Teacher-led Reflection",
+                                                      "activityNotes":"The teacher leads a reflective discussion on the key learnings from the module and how techniques can be applied in future writing."
+                                                    }
+                                }
+
+                                ]
+
+                }
+              ]
+}

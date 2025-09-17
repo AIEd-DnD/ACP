@@ -736,6 +736,94 @@ module_plan_tools_v3 = [
   }
 ]
 
+module_plan_tools_v4 = [
+  {
+    "type": "function",
+    "function": {
+      "name": "generate_lesson_module",
+      "description": "Generates a lesson module including multiple sections with activities or quizzes.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "moduleTitle": {
+            "type": "string",
+            "description": "The title of the lesson module. Use the module title provided by the user, unless the user did not provide a module title. Any suggested module title should be concise and descriptive in plain text format."
+          },
+          "moduleDescription": {
+            "type": "string",
+            "description": "A summary of what the students will be learning in this lesson module and the activities that the students will be engaging in."
+          },
+          "moduleNotes": {
+            "type": "array",
+            "description": "A list of sections in the module.",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "properties": {
+                "sectionID": {
+                  "type": "integer",
+                  "description": "Unique numeric identifier for the section."
+                },
+                "sectionTitle": {
+                  "type": "string",
+                  "description": "Title of the section. Section title should be concise and descriptive in plain text format."
+                },
+                "sectionNotes": {
+                  "type": "array",
+                  "description": "List of activities or quizzes in this section.",
+                  "minItems": 3,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "activityType": {
+                        "type": "string",
+                        "enum": ["Activity", "Quiz"],
+                        "description": "Type of activity - either 'Activity' or 'Quiz'."
+                      },
+                      "suggestedSLSTools": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Suggested tools to use in SLS for this activity."
+                      },
+                      "suggestedKATs": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": ["Foster conceptual change", "Support assessment for learning", "Facilitate learning together", "Develop metacognition", "Provide differentiation", "Embed scaffolding", "Enable personalisation", "Increase motivation"],
+                        },
+                        "description": "Suggested Key Applications of Technology (KATs) for the activity. Priority should be given to KATs requested by the user."
+                      },
+                      "activityDetails": {
+                        "type": "object",
+                        "properties": {
+                          "activityTitle": {
+                            "type": "string",
+                            "description": "Title of the activity."
+                          },
+                          "activityNotes": {
+                            "type": "string",
+                            "description": "Details or instructions for the activity. The notes should describe what the students will be doing in the activity and how teachers can facilitate the activity by using the suggested SLS tools."
+                          }
+                        },
+                        "required": ["activityTitle", "activityNotes"]
+                      }
+                    },
+                    "required": ["activityType", "suggestedSLSTools", "suggestedKATs", "activityDetails"]
+                  }
+                }
+              },
+              "required": ["sectionID", "sectionTitle", "sectionNotes"]
+            }
+          }
+        },
+        "required": ["moduleTitle", "moduleDescription", "moduleNotes"]
+      }
+    }
+  }
+]
+
 module_plan_tools = [
   {
     "type": "function",
