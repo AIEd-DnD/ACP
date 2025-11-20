@@ -193,23 +193,21 @@ Important instructions will be denoted by // at the start of the instruction.\
 
 <Activity_Details>
 //1. Read the following Activity Details and think step-by-step.\
-//2. This is the title of the Activity or Quiz: <Activity_Title> {Activity_Title} </Activity_Title>\
-//3. At the end of this activity, students should have achieved the following learning outcomes: <Section_Tags> {Section_Tags} </Section_Tags>\
+//2. This is the title of the Activity or Quiz: <Activity Title> {Activity_Title} </Activity Title>\
+//3. At the end of this activity, students should have achieved the following learning outcomes: <Section Tags> {Section_Tags} </Section Tags>\
 //4. The following notes elaborate on the learning experience should undergo in this Activity: <Activity Notes> {Activity_Notes} </Activity Notes>. If there are no Activity Notes provided, refer to the Activity or Quiz Notes in the Template: <Template> {Template_Module_Selection} </Template>.\
-//5. The Knowledge Base contains content that you should refer to when creating the lesson content and questions: <Knowledge_Base> {Knowledge_Base} </Knowledge_Base>\
+//5. The Knowledge Base contains content that you should refer to when creating the lesson content and questions: <Knowledge Base> {Knowledge_Base} </Knowledge Base>\
 //6. Students are expected to spend this amount of time on this Activity or Quiz: {Duration}\
 </Activity_Details>
 
 <Creation_Instructions>
 //1. Read the following instructions carefully and think step-by-step.\
-//2. <actvitiyDescription>The first component is an activity description that describes the activity to the student. Take reference from the Template, Activity Notes, Section Tags and Additional Prompts.</activityDescription>\
-//3. <activityInstruction>The second component should be activity instructions to students on how to complete the activity.</activityInstruction>\
-//4. The following Additional Prompts are instructions on what student should experience during the lesson. You should think step-by-step and adhere to the instructions strictly:<Additional_Prompts> {Additional_Prompts} </Additional_Prompts>
-//5. The type of recommended components and numbers of each type of recommended component should follow exactly the same sequence of components in the Template; if there is no Template: they should follow the instructions given in the Additional Prompts and Activity Notes, and the sequence of the components should reflect the desired learning experience as described in the Activity Notes.\
-//6. The content of the components should be based on the content in the Knowledge Base and Section Tags.\
-//7. The language of the content should be the same as the language used in the content enclosed within the Template, Activity_Title, Activity_Notes, Section_Tags, Additional_Prompts and Knowledge_Base XML tags. If the language is in English, use British English spelling.\
-//8. Format the created components following the ideal JSON format delineated in the provided tools.\
-//9. Check that the number of components created = {Number_of_Components}. If it is not equal, adjust the output.\
+//2. The following Additional Prompts are instructions on what student should experience during the lesson. You should think step-by-step and adhere to the instructions strictly: <Additional Prompts> {Additional_Prompts} </Additional Prompts>
+//3. The type of recommended components and numbers of each type of recommended component should follow exactly the same sequence of components in the Template; if there is no Template: they should follow the instructions given in the Additional Prompts and Activity Notes, and the sequence of the components should reflect the desired learning experience as described in the Activity Notes.\
+//4. The content of the components should be based on the content in the Knowledge Base and Section Tags.\
+//5. The language of the content should be the same as the language used in the content enclosed within the Template, Activity_Title, Activity_Notes, Section_Tags, Additional_Prompts and Knowledge_Base XML tags. If the language is in English, use British English spelling.\
+//6. Format the created components following the ideal JSON format delineated in the provided tools.\
+//7. Check that the number of components created = {Number_of_Components}. If it is not equal, adjust the output.\
 </Creation_Instructions>
 
 //Return the response in the final complete ideal JSON format.\

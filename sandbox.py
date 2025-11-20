@@ -2,7 +2,7 @@ import helper_functions as ACP
 import json
 import prompts
 
-file_name = "Prototype_v3_s1_a3_Econs_gpt_4o_mini"
+file_name = "Prototype_v3_s1_a3_Physics_Guided_Inquiry_Centre_of_Gravity.html"
 
 learning_objectives = """
 - show an understanding that the weight of a body may be taken as acting at a single point known as its centre of gravity
@@ -13,13 +13,16 @@ level = "Secondary 3"
 number_of_sections = 1
 number_of_activities_per_section = 3
 instructions = """
-
+Create an inquiry-based lesson with the following structure:
+- Activity 1: Elicit prior knowledge and misconceptions about the phenomeon or concept in the learning outcomes. This can be done through a hands-on demonstration, video, or simulation that challenges students' preconceived ideas.
+- Activity 2: Students will design and conduct an investigation to explore a hypothesis prepared by the teacher. Students should have the opportunity to record their observations and data using appropriate tools and technology.
+- Activity 3: Students will analyse their data and draw conclusions based on their findings. This can be done through group discussions, presentations, or written reports.
 """
 knowledge_base = """
 
 """
 KATs = """
-Embed scaffolding, Support assessment for learning
+Foster Conceptual Change
 """
 module_plan_tools_v3 = [
   {
@@ -181,7 +184,7 @@ module_plan_tools_v4 = [
                           },
                           "activityNotes": {
                             "type": "string",
-                            "description": "Details or instructions for the activity. The notes should describe what the students will be doing in the activity and how teachers can facilitate the activity by using the suggested SLS tools."
+                            "description": "Details or instructions for the activity. The notes should describe what the students will be doing in the activity and how teachers can facilitate the activity by using the suggested SLS tools. The notes should be succinct and less than 1000 characters in length. Use HTML tags for formatting where appropriate."
                           }
                         },
                         "required": ["activityTitle", "activityNotes"]
@@ -204,11 +207,11 @@ module_plan_tools_v4 = [
 message = ACP.small_fat_assembler(module_title, subject, level, learning_objectives, str(number_of_sections), str(number_of_activities_per_section), instructions, knowledge_base, KATs)
 #print(message)
 plan = ACP.module_plan_generator_gpt5(message, module_plan_tools_v4)
-#plan_dict = json.loads(plan)
+plan_dict = json.loads(plan)
 #print(plan_dict)
 #stuff = type(plan_dict['moduleNotes'][0]['sectionNotes'][0]['interactionType'])
 #print(stuff)
-#html_file = ACP.json_to_html_writer(plan_dict)
+html_file = ACP.json_to_html_writer(plan_dict)
 
 
 #content = prompts.styling
@@ -221,6 +224,6 @@ plan = ACP.module_plan_generator_gpt5(message, module_plan_tools_v4)
     #content += '<br>'
     #content += section['sectionNotes']
 
-#filename = ACP.start_new_HTML(file_name)
-#ACP.write_to_HTML_file(filename, html_file)
+filename = ACP.start_new_HTML(file_name)
+ACP.write_to_HTML_file(filename, html_file)
 #ACP.json_to_html(plan_dict, filename)

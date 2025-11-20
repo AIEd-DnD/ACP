@@ -187,12 +187,12 @@ def module_plan_generator_gpt5(user_prompt, tool):
     client = OpenAI(api_key=openai_api_key)
     response = client.chat.completions.create(
         model="gpt-5-mini-2025-08-07",
-        reasoning_effort="high",
+        reasoning_effort="medium",
         max_completion_tokens=32000,
         tools = tool,
         messages=[{"role": "user", "content":user_prompt}]
         )
-    print(response)
+    #print(response)
     return response.choices[0].message.tool_calls[0].function.arguments
 
 def activity_plan_generator_gpt5_responses(user_prompt, tool):
@@ -202,7 +202,7 @@ def activity_plan_generator_gpt5_responses(user_prompt, tool):
         #temperature=0.7,
         reasoning= {"effort": "medium",
                     "summary": "detailed"},
-        max_output_tokens=32000,
+        max_output_tokens=16000,
         tools=tool,
         input=[{
             "role": "user",
@@ -211,19 +211,20 @@ def activity_plan_generator_gpt5_responses(user_prompt, tool):
             ]
         }],
     )
+    print(response)
     for i in response.output[0].summary:
         print(i.text)
         print(" ")
-    #for i in response.output:
-        #print(i)
-    #print(response.output[1].arguments)
+    for i in response.output:
+        print(i)
+    print(response.output[1].arguments)
 
 def activity_plan_generator_gpt5(user_prompt, tool):
     client = OpenAI(api_key=openai_api_key)
     response = client.chat.completions.create(
         model="gpt-5-mini-2025-08-07",
         reasoning_effort="high",
-        max_completion_tokens=32000,
+        max_completion_tokens=16000,
         tools = tool,
         messages=[{"role": "user", "content":user_prompt}]
         )
@@ -253,7 +254,7 @@ def activity_plan_generator_gpt5(user_prompt, tool):
             print(" ")
         elif 'discussionQuestion' in component.keys():
             print('Discussion')
-            print('Topic: '+str(component['discussionQuestion']['topic']['richtext']))
+            print('Topic: '+str(component['discussionQuestion']['topic']))
             print('Question: '+str(component['discussionQuestion']['question']['richtext']))
             print(" ")
         elif 'errorEditingQuestion' in component.keys():

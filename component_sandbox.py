@@ -7,7 +7,13 @@ learning_objectives = """
 """
 activity_title = "Explore with Simulation: Finding the Balance Point "
 activity_notes = """
-Students individually open an interactive simulation that displays various regular and irregular 2D shapes. Teacher prompts students to: (a) predict where the weight (gravity) acts for each shape and mark their predicted centre using the Interactive Thinking Tool; (b) use the simulation's balance/fulcrum mode to find the actual balance point (centre of gravity) for each shape; (c) note any differences between their prediction and the simulated result. Teachers circulate virtually/in-class to scaffold thinking: ask targeted questions (Why did you place the centre there? What changed when the shape became irregular?), model think-alouds for one example, and prompt students to revise their mental models. This activity uses conceptual-change strategies: elicit preconceptions, provide discrepant events via simulation, and support restructuring through guided reflection.
+Students individually open an interactive simulation that displays various regular and irregular 2D shapes. 
+Teacher prompts students to: 
+(a) predict where the weight (gravity) acts for each shape and mark their predicted centre using the Interactive Thinking Tool; 
+(b) use the simulation's balance/fulcrum mode to find the actual balance point (centre of gravity) for each shape; 
+(c) note any differences between their prediction and the simulated result. 
+Teachers circulate virtually/in-class to scaffold thinking: ask targeted questions (Why did you place the centre there? What changed when the shape became irregular?), model think-alouds for one example, and prompt students to revise their mental models. 
+This activity uses conceptual-change strategies: elicit preconceptions, provide discrepant events via simulation, and support restructuring through guided reflection.
 """
 template = " "
 duration = " "
@@ -39,9 +45,10 @@ knowledge_base = """
 activity_to_component_tools = [
       {
         "type": "function",
-        "name": "get_new_component_recommendations",
-        "description": "Evaluate and must provide a list of recommendations. Richtext contents must be in HTML format. The response must be a valid JSON",
-        "parameters": {
+        "function": {
+          "name": "get_new_component_recommendations",
+          "description": "Evaluate and must provide a list of recommendations. Richtext contents must be in HTML format. The response must be a valid JSON",
+          "parameters": {
             "type": "object",
             "properties": {
               "recommendations": {
@@ -94,7 +101,7 @@ activity_to_component_tools = [
             "definitions": {
               "richtext": {
                 "type": "string",
-                "description": "The richtext content in HTML tags for formatting and LaTeX code for mathematical expressions. All LaTeX code should be enclosed within a pair double dollar synmbols $$."
+                "description": "The richtext content in HTML"
               },
               "marks": {
                 "type": "number",
@@ -138,7 +145,7 @@ activity_to_component_tools = [
               },
               "textRecommendation": {
                 "type": "object",
-                "description": "A paragraph of text to help students understand the learning outcomes. The text can include explanations and examples to make it easier for students to understand the learning outcomes. For each paragraph of text, provide (i) the required text, which can include tables, ordered lists, unordered lists or mathematical expressions written in LaTeX and enclosed in a pair of double dollar symbols $$ ",
+                "description": "A recommended text paragraph",
                 "properties": {
                   "text": {
                     "type": "object",
@@ -158,7 +165,7 @@ activity_to_component_tools = [
               },
               "multipleChoiceQuestionRecommendation": {
                 "type": "object",
-                "description": "A multiple choice question with at least two options. There can be one or more correct answers.",
+                "description": "A recommended multiple choice question",
                 "properties": {
                   "multipleChoiceQuestion": {
                     "type": "object",
@@ -177,7 +184,7 @@ activity_to_component_tools = [
                       },
                       "answers": {
                         "type": "array",
-                        "description": "The list of correct answers.",
+                        "description": "The list of correct answers",
                         "items": {
                           "type": "object",
                           "description": "A correct answer",
@@ -229,7 +236,7 @@ activity_to_component_tools = [
               },
               "freeResponseQuestionRecommendation": {
                 "type": "object",
-                "description": "A free response question which includes suggested answers.",
+                "description": "A recommended free response question",
                 "properties": {
                   "freeResponseQuestion": {
                     "type": "object",
@@ -248,7 +255,7 @@ activity_to_component_tools = [
                       },
                       "answer": {
                         "type": "object",
-                        "description": "A comprehensive list of creditworthy points that answers the question, where one point is to be awarded one mark and written in the following format: (1 mark): Statement describing creditworthy point.",
+                        "description": "The content of the suggested answer.",
                         "properties": {
                           "richtext": {
                             "$ref": "#/definitions/richtext"
@@ -276,7 +283,7 @@ activity_to_component_tools = [
               },
               "pollRecommendation": {
                 "type": "object",
-                "description": "A poll which is a multiple choice question with two or more options but no correct answer.",
+                "description": "A recommended poll",
                 "properties": {
                   "poll": {
                     "type": "object",
@@ -322,7 +329,7 @@ activity_to_component_tools = [
               },
               "discussionQuestionRecommendation": {
                 "type": "object",
-                "description": "A discussion question which invites students to respond with their opinion.",
+                "description": "A recommended discussion question",
                 "properties": {
                   "discussionQuestion": {
                     "type": "object",
@@ -356,7 +363,7 @@ activity_to_component_tools = [
               },
               "errorEditingQuestionRecommendation": {
                 "type": "object",
-                "description": "An error editing question which comprises multiple sentences, each of which may contain a factual or language error, related to the learning outcomes.",
+                "description": "A recommended error editing question",
                 "properties": {
                   "errorEditingQuestion": {
                     "type": "object",
@@ -366,7 +373,7 @@ activity_to_component_tools = [
                         "description": "The list of sentences",
                         "items": {
                           "type": "object",
-                          "description": "A sentence which can have errors and its answers",
+                          "description": "A sentence which can have errors and it's answers",
                           "properties": {
                             "sentence": {
                               "type": "object",
@@ -415,7 +422,7 @@ activity_to_component_tools = [
               },
               "fillInTheBlankQuestionRecommendation": {
                 "type": "object",
-                "description": "A fill-in-the-blank question based on the learning outcomes where the blanks refer to key ideas, concepts or words for the learning outcomes.",
+                "description": "A recommended Fill In the Blank question",
                 "properties": {
                   "fillInTheBlankQuestion": {
                     "type": "object",
@@ -475,7 +482,7 @@ activity_to_component_tools = [
               },
               "interactiveThinkingRoutineQuestionRecommendation": {
                 "type": "object",
-                "description": "An interactive thinking tool (ITT) has a set of categories. For each category, there is a specific question related to the learning outcome and the category.",
+                "description": "A recommended Interactive Thinking Routine question",
                 "properties": {
                   "interactiveThinkingRoutineQuestion": {
                     "type": "array",
@@ -515,7 +522,8 @@ activity_to_component_tools = [
             ]
           }
         }
+      }
     ]
 
 user_message = ACP.assemble_activity_prompt(subject, level, activity_title, activity_notes, template, duration, instructions, learning_objectives, knowledge_base, number_of_components)
-ACP.activity_plan_generator_gpt5_responses(user_message, activity_to_component_tools)
+ACP.activity_plan_generator_gpt5(user_message, activity_to_component_tools)
