@@ -188,7 +188,7 @@ def module_plan_generator_gpt5(user_prompt, tool):
     response = client.chat.completions.create(
         model="gpt-5-mini-2025-08-07",
         reasoning_effort="medium",
-        max_completion_tokens=32000,
+        max_completion_tokens=16000,
         tools = tool,
         messages=[{"role": "user", "content":user_prompt}]
         )
@@ -223,7 +223,7 @@ def activity_plan_generator_gpt5(user_prompt, tool):
     client = OpenAI(api_key=openai_api_key)
     response = client.chat.completions.create(
         model="gpt-5-mini-2025-08-07",
-        reasoning_effort="high",
+        reasoning_effort="low",
         max_completion_tokens=16000,
         tools = tool,
         messages=[{"role": "user", "content":user_prompt}]

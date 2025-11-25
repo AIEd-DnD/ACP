@@ -5,15 +5,16 @@ import prompts
 learning_objectives = """
 - show an understanding that the weight of a body may be taken as acting at a single point known as its centre of gravity
 """
-activity_title = "Explore with Simulation: Finding the Balance Point "
+activity_title = "Analyse data & communicate conclusions"
 activity_notes = """
-Students individually open an interactive simulation that displays various regular and irregular 2D shapes. 
-Teacher prompts students to: 
-(a) predict where the weight (gravity) acts for each shape and mark their predicted centre using the Interactive Thinking Tool; 
-(b) use the simulation's balance/fulcrum mode to find the actual balance point (centre of gravity) for each shape; 
-(c) note any differences between their prediction and the simulated result. 
-Teachers circulate virtually/in-class to scaffold thinking: ask targeted questions (Why did you place the centre there? What changed when the shape became irregular?), model think-alouds for one example, and prompt students to revise their mental models. 
-This activity uses conceptual-change strategies: elicit preconceptions, provide discrepant events via simulation, and support restructuring through guided reflection.
+Purpose: Students interpret their trial data to decide whether evidence supports the hypothesis and articulate their reasoning. Teacher uses assessment tools to provide targeted feedback and to remediate remaining misconceptions.
+Procedure (15-20 min):
+Each group examines their Embed Google Sheets dataset and identifies patterns (e.g. how balance point shifts with mass movement). They prepare a short claim–evidence–reasoning statement: "Claim: ...; Evidence: ...; Reasoning: ..."
+Groups post their one-paragraph claim in the class area (or teacher collects via the Sheet). Teacher runs a short Progressive Quiz with auto-feedback: 3 adaptive items that check conceptual understanding (e.g. choose the correct location of centre of gravity in new scenarios, explain why an asymmetric object balances at a point outside the geometric centre).
+Use quiz analytics to identify students with persistent misconceptions. Teacher provides targeted feedback (written or verbal) and suggests one follow-up micro-task (re-run a simulation configuration or read a short explanation).
+Assessment for learning: The Progressive Quiz gives immediate, bite-sized feedback and aggregates class responses so the teacher can decide next instructional steps (mini-lesson, remediation group, or extension).
+Extension / Differentiation: Higher-performing groups can explore calculating centre of mass for composite shapes (use the Google Sheets formulas). Struggling students receive scaffolded questions and a guided PhET scenario to re-run.
+Suggested SLS Tools: Progressive Quiz, Embed Google Sheets
 """
 template = " "
 duration = " "
